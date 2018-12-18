@@ -28,4 +28,15 @@ public class Planet {
     this.mass = p.mass;
     this.imgFileName = p.imgFileName;
   }
+
+  /**
+   * Calculates the distance between this planet and the one passed in
+   * @param p the other planet
+   */
+  public double calcDistance(Planet p) {
+    double dx = p.xxPos - this.xxPos;
+    double dy = p.yyPos - this.yyPos;
+    
+    return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+  }
 }
