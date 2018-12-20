@@ -50,6 +50,21 @@ public class NBody {
     return planets;
   }
 
+  /**
+   * Draw the background and planets to the universe
+   * @param backgroundImg The filename of the background image
+   * @param planets All of the planets to be drawn
+   */
+  public static void drawUniverse(String backgroundImg, Planet[] planets) {
+    StdDraw.picture(0, 0, backgroundImg);
+
+    // Draw the planets AFTER the background has been drawn
+    // so that the planets aren't covered by the background
+    for (Planet planet : planets) {
+      planet.draw();
+    }
+  }
+
   public static void main(String[] args) {
     double T = Double.parseDouble(args[0]);
     double dT = Double.parseDouble(args[1]);
@@ -58,15 +73,32 @@ public class NBody {
     double radius = readRadius(filename);
     Planet[] planets = readPlanets(filename);
 
-    // Sets scale for and draws the background to a window
-    String background = "./images/starfield.jpg";
+    String backgroundImg = "./images/starfield.jpg";
     StdDraw.setScale(-radius, radius);
-    StdDraw.picture(0, 0, background);
 
-    // Draw the planets AFTER the background has been drawn
-    // so that the planets aren't covered by the background
-    for (Planet planet : planets) {
-      planet.draw();
+    drawUniverse(backgroundImg, planets);
+
+    StdDraw.enableDoubleBuffering();
+
+    double time = 0;
+    while (time < T) {
+      double[] xForces = new double[planets.length];
+      double[] yForces = new double[planets.length];
+
+      for (int i = 0; i < planets.length; i++) {
+        xForces[i] = planets[i].calcNetForceExertedByX(planets);
+        yForces[i] = planets[i].calcNetForceExertedByX(planets);
+      }
+
+      for (int i = 0; i < planets.length; i++) {
+        planets[i].update(dT, xForces[i], yForces[i]);
+      }
+
+      drawUniverse(backgroundImg, planets);
+
+      StdDraw.show();
+      StdDraw.pause(10);
+      time += dT;
     }
   }
 }
