@@ -70,4 +70,32 @@ public class Planet {
     double force = (calcForceExertedBy(p) * dy) / calcDistance(p);
     return force;
   }
+
+  /**
+   * Calculates the net X component of force exerted by all other planets
+   * @param planets all the planets in the system
+   */
+  public double calcNetForceExertedByX(Planet[] planets) {
+    double netForce = 0;
+    for (Planet p : planets) {
+      if (!p.equals(this)) {
+        netForce += this.calcForceExertedByX(p);
+      }
+    }
+    return netForce;
+  }
+
+  /**
+   * Calculates the net Y component of force exerted by all other planets
+   * @param planets all the planets in the system
+   */
+  public double calcNetForceExertedByY(Planet[] planets) {
+    double netForce = 0;
+    for (Planet p : planets) {
+      if (!p.equals(this)) {
+        netForce += this.calcForceExertedByY(p);
+      }
+    }
+    return netForce;
+  }
 }
