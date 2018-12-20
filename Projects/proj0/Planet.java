@@ -10,6 +10,8 @@ public class Planet {
   public double mass;
   public String imgFileName;
 
+  static final double GRAVITATION = 6.67e-11;
+
   public Planet(double xP, double yP, double xV,
               double yV, double m, String img) {
     this.xxPos = xP;
@@ -30,7 +32,7 @@ public class Planet {
   }
 
   /**
-   * Calculates the distance between this planet and the one passed in
+   * Calculates the distance between this planet and p
    * @param p the other planet
    */
   public double calcDistance(Planet p) {
@@ -38,5 +40,16 @@ public class Planet {
     double dy = p.yyPos - this.yyPos;
     
     return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+  }
+
+  /**
+   * Calculates the force exerted by p onto this planet
+   * @param p the other planet
+   * @return
+   */
+  public double calcForceExertedBy(Planet p) {
+    double force = (GRAVITATION * p.mass * this.mass) / Math.pow(calcDistance(p), 2);
+    // double force = (6.77e-11 * p.mass * this.mass); // / Math.pow(calcDistance(p), 2);
+    return force;
   }
 }
