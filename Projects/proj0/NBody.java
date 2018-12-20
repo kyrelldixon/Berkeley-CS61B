@@ -49,4 +49,19 @@ public class NBody {
 
     return planets;
   }
+
+  public static void main(String[] args) {
+    double T = Double.parseDouble(args[0]);
+    double dT = Double.parseDouble(args[1]);
+    String filename = args[2];
+
+    double radius = readRadius(filename);
+    Planet[] planets = readPlanets(filename);
+
+    // Sets scale for and draws the background to a window
+    String background = "./images/starfield.jpg";
+    StdDraw.setScale(-100, 100);
+    StdDraw.clear();
+    StdDraw.picture(0, 0, background);
+  }
 }
