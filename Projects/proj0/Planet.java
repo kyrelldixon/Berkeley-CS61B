@@ -98,4 +98,26 @@ public class Planet {
     }
     return netForce;
   }
+
+  /**
+   * Updates the planet's position, xVelocity, and yVelocity based on
+   * the change in time and the X and Y components of force
+   * @param dt
+   * @param fX
+   * @param fY
+   */
+  public void update(double dt, double fX, double fY) {
+    // Calculate the acceleration using the provided x- and y -forces.
+    double ax = fX / this.mass;
+    double ay = fY / this.mass;
+    // Calculate the new velocity by using the acceleration and current velocity. 
+    // Recall that acceleration describes the change in velocity per unit time,
+    // so the new velocity is (vx+dt⋅ax,vy+dt⋅ay)
+    this.xxVel = this.xxVel + dt * ax;
+    this.yyVel = this.yyVel + dt * ay;
+    // Calculate the new position by using the velocity computed in step 2
+    // and the current position. The new position is (px+dt⋅vx,py+dt⋅vy)
+    this.xxPos = this.xxPos + dt * this.xxVel;
+    this.yyPos = this.yyPos + dt * this.yyVel;
+  }
 }
