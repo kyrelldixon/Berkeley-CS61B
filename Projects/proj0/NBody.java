@@ -60,8 +60,13 @@ public class NBody {
 
     // Sets scale for and draws the background to a window
     String background = "./images/starfield.jpg";
-    StdDraw.setScale(-100, 100);
-    StdDraw.clear();
+    StdDraw.setScale(-radius, radius);
     StdDraw.picture(0, 0, background);
+
+    // Draw the planets AFTER the background has been drawn
+    // so that the planets aren't covered by the background
+    for (Planet planet : planets) {
+      planet.draw();
+    }
   }
 }
