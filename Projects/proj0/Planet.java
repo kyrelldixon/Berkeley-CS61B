@@ -45,11 +45,29 @@ public class Planet {
   /**
    * Calculates the force exerted by p onto this planet
    * @param p the other planet
-   * @return
    */
   public double calcForceExertedBy(Planet p) {
     double force = (GRAVITATION * p.mass * this.mass) / Math.pow(calcDistance(p), 2);
-    // double force = (6.77e-11 * p.mass * this.mass); // / Math.pow(calcDistance(p), 2);
+    return force;
+  }
+
+  /**
+   * Calculates the X component of force exerted by p onto this planet
+   * @param p the other planet
+   */
+  public double calcForceExertedByX(Planet p) {
+    double dx = p.xxPos - this.xxPos;
+    double force = (calcForceExertedBy(p) * dx) / calcDistance(p);
+    return force;
+  }
+
+  /**
+   * Calculates the Y component of force exerted by p onto this planet
+   * @param p the other planet
+   */
+  public double calcForceExertedByY(Planet p) {
+    double dy = p.yyPos - this.yyPos;
+    double force = (calcForceExertedBy(p) * dy) / calcDistance(p);
     return force;
   }
 }
